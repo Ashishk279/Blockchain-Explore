@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockChain Explorer</title>
+     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        function getBlockchainInfo(){
+            transantionID = document.getElementById("transactionId").value;
+            $.get('https://api.blockcypher.com/v1/btc/main/txs/' + transantionID).then(function(d) {
+                // console.log(d);
+                for(key in d){
+                    // console.log(key);
+                    // console.log(d[key]);
+                    newElement = document.createElement("p");
+                    newElement.innerHTML = key + " : " + d[key];
+                    mainParagraph = document.getElementById("data");
+                    mainParagraph.appendChild(newElement);
+                }
+            }
+            );
+
+        
+        }
+    </script>
+    <a href="index.html" class="button">Blockchain Info</a>
+    <a href="blockInfo.html" class="button">Block Info</a>
+    <div class="container">
+        <h1>Fetching Bitcoin Data</h1>
+        <input type="text" id="transactionId"></input>
+        <p id="data"></p>
+        <button onclick="getBlockchainInfo()">Check Blockchain Info
+        </button>
+    </div>
+</body>
+</html>
